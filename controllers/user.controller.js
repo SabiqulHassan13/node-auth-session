@@ -43,7 +43,7 @@ async function processLogin(req, res) {
   const { email, password } = req.body;
   console.log(req.body);
 
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ where: { email } });
 
   if (!user) {
     // req.session.error = "Invalid Credentials";
