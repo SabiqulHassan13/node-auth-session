@@ -70,26 +70,20 @@ async function processLogin(req, res) {
   req.session.isAuth = true;
   req.session.user = user;
 
-  //   res.locals.user = {
-  //     id: user.id,
-  //     name: user.username,
-  //     email: user.email,
-  //     isAdmin: user.isAdmin,
-  //   };
-
   res.redirect("/dashboard");
-  //   res.render("dashboard");
 }
 
 function processLogout(req, res) {
-  //   req.session.destroy((err) => {
-  //     if (err) throw err;
-  //     res.redirect("/login");
-  //   });
-  req.session.isAuth = false;
-  req.session.user = "";
-  req.session.error = "";
-  res.redirect("/login");
+    req.session.destroy((err) => {
+      if (err) throw err;
+      res.redirect("/login");
+    });
+
+//   req.session.isAuth = false;
+//   req.session.user = "";
+//   req.session.error = "";
+
+//   res.redirect("/login");
 }
 
 function showUserList(req, res) {
