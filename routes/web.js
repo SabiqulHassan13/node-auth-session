@@ -3,19 +3,20 @@ const router = express.Router();
 
 const homeController = require("../controllers/home.controller");
 const userController = require("../controllers/user.controller");
+const { checkIsAuth, checkIsGuest } = require("../middlewares/auth");
 
 // Home Routes
 router.get("/", homeController.showHome);
-router.get("/dashboard", homeController.showDashboard);
+router.get("/dashboard", checkIsAuth, homeController.showDashboard);
 
 // User Routes
-router.get("/register", userController.showRegister);
+router.get("/register", checkIsGuest, userController.showRegister);
 router.post("/register", userController.processRegister);
 
-router.get("/login", userController.showLogin);
+router.get("/login", checkIsGuest, userController.showLogin);
 router.post("/login", userController.processLogin);
 router.post("/logout", userController.processLogout);
 
-router.get("/users", userController.showUserList);
+router.get("/users", checkIsAuth, userController.showUserList);
 
 module.exports = router;
