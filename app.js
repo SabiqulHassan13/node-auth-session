@@ -4,12 +4,14 @@ require("dotenv").config();
 const path = require("path");
 const express = require("express");
 const expressLayouts = require("express-ejs-layouts");
-const session = require("express-session");
-// const MongoDBStore = require("connect-mongodb-session")(session);
+// const session = require("express-session");
+
+const cookieParser = require("cookie-parser");
+const expressSession = require("express-session");
+const SessionStore = require("express-session-sequelize")(expressSession.Store);
 
 // internal import
-// const { connectMongoDB, MONGO_URI } = require("./config/mongoose");
-const { connectMysql } = require("./config/sequelize");
+const { connectMysql, sequelize } = require("./config/sequelize");
 
 const webRoutes = require("./routes/web");
 
@@ -18,25 +20,24 @@ const app = express();
 
 // database connection
 connectMysql();
-// connectMongoDB();
 
 // session store
-// const store = new MongoDBStore({
-//   uri: MONGO_URI,
-//   collection: "mySessions",
-// });
+const sequelizeSessionStore = new SessionStore({
+  db: sequelize,
+});
 
 // middleware list
 app.use(express.urlencoded({ extended: true }));
 
-// app.use(
-//   session({
-//     secret: "secret key that will sign cookie",
-//     resave: false,
-//     saveUninitialized: false,
-//     store: store,
-//   })
-// );
+app.use(cookieParser());
+app.use(
+  expressSession({
+    secret: process.env.SESSION_SECRET_KEY,
+    resave: false,
+    saveUninitialized: false,
+    store: sequelizeSessionStore,
+  })
+);
 
 // template setup for ejs
 app.set("view engine", "ejs");

@@ -7,7 +7,9 @@ function showRegister(req, res) {
 }
 
 function showLogin(req, res) {
-  res.render("auth/login");
+  const error = req.session.error;
+
+  res.render("auth/login", { err: error });
 }
 
 async function processRegister(req, res) {
@@ -41,13 +43,13 @@ async function processRegister(req, res) {
 
 async function processLogin(req, res) {
   const { email, password } = req.body;
-  console.log(req.body);
+  //   console.log(req.body);
 
   const user = await User.findOne({ where: { email } });
 
   if (!user) {
-    // req.session.error = "Invalid Credentials";
-    console.log("invalid credentials");
+    req.session.error = "Invalid Credentials";
+    // console.log("invalid credentials");
 
     return res.redirect("/login");
   }
@@ -55,15 +57,27 @@ async function processLogin(req, res) {
   const isMatch = await bcrypt.compare(password, user.password);
 
   if (!isMatch) {
-    // req.session.error = "Invalid Credentials";
-    console.log("invalid credentials");
+    req.session.error = "Invalid Credentials";
+    // console.log("invalid credentials");
 
     return res.redirect("/login");
   }
 
-  //   req.session.isAuth = true;
-  //   req.session.username = user.username;
+  req.session.isAuth = true;
+  req.session.isAdmin = user.isAdmin;
+
+//   res.locals.user = {
+//     id: user.id,
+//     name: user.username,
+//     email: user.email,
+//     isAdmin: user.isAdmin,
+//   };
+
   res.redirect("/dashboard");
+}
+
+function processLogout(req, res) {
+  // req.body;
 }
 
 module.exports = { showRegister, showLogin, processRegister, processLogin };
