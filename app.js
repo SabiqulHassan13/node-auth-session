@@ -9,6 +9,7 @@ const expressLayouts = require("express-ejs-layouts");
 
 // internal import
 const { connectMongoDB, MONGO_URI } = require("./config/database");
+const webRoutes = require("./routes/web");
 
 // app create
 const app = express();
@@ -24,6 +25,8 @@ const store = new MongoDBStore({
 });
 
 // middleware list
+app.use(express.urlencoded({ extended: true }));
+
 app.use(
   session({
     secret: "secret key that will sign cookie",
@@ -44,24 +47,6 @@ app.set("layout extractStyles", true);
 app.set("layout extractScripts", true);
 
 // route list
-app.get("/", function (req, res) {
-  //   req.session.isAuth = true;
-  //   console.log(req.session);
-  //   res.send("<h1>Hello world</h1>");
-  res.render("home");
-});
-
-app.get("/dashboard", function (req, res) {
-  res.render("dashboard");
-});
-
-app.get("/login", function (req, res) {
-  res.render("auth/login");
-});
-
-app.get("/register", function (req, res) {
-  res.render("auth/register");
-});
 
 // run server
 const PORT = process.env.PORT;
