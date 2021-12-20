@@ -10,10 +10,10 @@ const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASS, {
 async function connectMysql() {
   try {
     await sequelize.authenticate();
-    console.log("Database connected successfully...");
+    console.log("Database connected successfully");
 
     await sequelize.sync({ alter: true });
-    console.log("All models were synchronized successfully.");
+    console.log("All models were synchronized successfully");
   } catch (err) {
     console.log("Database connection failed: " + err);
   }
