@@ -74,16 +74,16 @@ async function processLogin(req, res) {
 }
 
 function processLogout(req, res) {
-    req.session.destroy((err) => {
-      if (err) throw err;
-      res.redirect("/login");
-    });
+  req.session.destroy((err) => {
+    if (err) throw err;
+    res.redirect("/login");
+  });
 
-//   req.session.isAuth = false;
-//   req.session.user = "";
-//   req.session.error = "";
+  //   req.session.isAuth = false;
+  //   req.session.user = "";
+  //   req.session.error = "";
 
-//   res.redirect("/login");
+  //   res.redirect("/login");
 }
 
 function showUserList(req, res) {

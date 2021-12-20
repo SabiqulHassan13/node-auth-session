@@ -13,10 +13,10 @@ function checkIsAuth(req, res, next) {
 }
 
 function checkIsAdmin(req, res, next) {
-  if (req.session.isAuth === true && req.locals.user.isAdmin === 1) {
+  if (req.session.isAuth === true && req.session.user.isAdmin === 1) {
     next();
   }
   return res.redirect("back");
 }
 
-module.exports = { checkIsAuth, checkIsGuest };
+module.exports = { checkIsAuth, checkIsGuest, checkIsAdmin };
