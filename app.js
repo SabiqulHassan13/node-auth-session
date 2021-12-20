@@ -47,7 +47,20 @@ app.set("layout extractScripts", true);
 app.get("/", function (req, res) {
   //   req.session.isAuth = true;
   //   console.log(req.session);
-  res.send("<h1>Hello world</h1>");
+  //   res.send("<h1>Hello world</h1>");
+  res.render("home");
+});
+
+app.get("/dashboard", function (req, res) {
+  res.render("dashboard");
+});
+
+app.get("/login", function (req, res) {
+  res.render("auth/login");
+});
+
+app.get("/register", function (req, res) {
+  res.render("auth/register");
 });
 
 // run server
