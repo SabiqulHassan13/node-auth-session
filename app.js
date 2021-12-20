@@ -4,25 +4,14 @@ const express = require("express");
 const session = require("express-session");
 const mongoose = require("mongoose");
 
+// internal import
+const { connectMongoDB } = require("./config/database");
+
 // app create
 const app = express();
 dotenv.config();
 
 // database connection
-const mongoUri = "mongodb://localhost:27017/session";
-
-async function connectMongoDB() {
-  try {
-    await mongoose.createConnection(mongoUri);
-    console.log("MongoDB Connected Successfully");
-  } catch (err) {
-    // console.log("MongoDB Connection Failed");
-    // console.log(err);
-    console.log(err.message);
-    process.exit(1);
-  }
-}
-
 connectMongoDB();
 
 // middleware list
