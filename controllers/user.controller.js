@@ -3,11 +3,15 @@ const bcrypt = require("bcrypt");
 const User = require("../models/user.model");
 
 function showRegister(req, res) {
+  const error = req.session.error;
+  //   delete req.session.error;
+
   res.render("auth/register");
 }
 
 function showLogin(req, res) {
   const error = req.session.error;
+  //   delete req.session.error;
 
   res.render("auth/login", { err: error });
 }
@@ -64,20 +68,39 @@ async function processLogin(req, res) {
   }
 
   req.session.isAuth = true;
-  req.session.isAdmin = user.isAdmin;
+  req.session.user = user;
 
-//   res.locals.user = {
-//     id: user.id,
-//     name: user.username,
-//     email: user.email,
-//     isAdmin: user.isAdmin,
-//   };
+  //   res.locals.user = {
+  //     id: user.id,
+  //     name: user.username,
+  //     email: user.email,
+  //     isAdmin: user.isAdmin,
+  //   };
 
   res.redirect("/dashboard");
+  //   res.render("dashboard");
 }
 
 function processLogout(req, res) {
-  // req.body;
+  //   req.session.destroy((err) => {
+  //     if (err) throw err;
+  //     res.redirect("/login");
+  //   });
+  req.session.isAuth = false;
+  req.session.user = "";
+  req.session.error = "";
+  res.redirect("/login");
 }
 
-module.exports = { showRegister, showLogin, processRegister, processLogin };
+function showUserList(req, res) {
+  res.render("user-list");
+}
+
+module.exports = {
+  showRegister,
+  showLogin,
+  processRegister,
+  processLogin,
+  processLogout,
+  showUserList,
+};

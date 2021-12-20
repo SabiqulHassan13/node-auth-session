@@ -39,6 +39,12 @@ app.use(
   })
 );
 
+// access session data from ejs view
+app.use(function (req, res, next) {
+  res.locals.user = req.session.user;
+  next();
+});
+
 // template setup for ejs
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));

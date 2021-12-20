@@ -1,8 +1,13 @@
 <section>
   <h2>Dashboard Page</h2>
   <p>Welcome to your account</p>
-  <p>User Id:</p>
-  <p>User Name: <%= %></p>
-  <p>User Email:</p>
-  <p>User Role:</p>
+
+  <p>User Id: <%= user.id %></p>
+  <p>User Name: <%= user.username %></p>
+  <p>User Email: <%= user.email %></p>
+  <p>User Role: <%= user.isAdmin == 0 ? 'Client' : 'Admin' %></p>
+
+  <form action="/logout" method="POST">
+    <button type="submit">Logout</button>
+  </form>
 </section>

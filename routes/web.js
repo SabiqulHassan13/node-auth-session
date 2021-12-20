@@ -8,11 +8,14 @@ const userController = require("../controllers/user.controller");
 router.get("/", homeController.showHome);
 router.get("/dashboard", homeController.showDashboard);
 
-// Auth Routes
+// User Routes
 router.get("/register", userController.showRegister);
 router.post("/register", userController.processRegister);
 
 router.get("/login", userController.showLogin);
 router.post("/login", userController.processLogin);
+router.post("/logout", userController.processLogout);
+
+router.get("/users", userController.showUserList);
 
 module.exports = router;
