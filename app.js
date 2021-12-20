@@ -1,19 +1,19 @@
 // package import
-const path = require("path");
-
 const dotenv = require("dotenv");
+dotenv.config();
+
+const path = require("path");
 const express = require("express");
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const expressLayouts = require("express-ejs-layouts");
 
 // internal import
-const { connectMongoDB, MONGO_URI } = require("./config/database");
+const { connectMongoDB, MONGO_URI } = require("./config/mongoose");
 const webRoutes = require("./routes/web");
 
 // app create
 const app = express();
-dotenv.config();
 
 // database connection
 connectMongoDB();
@@ -47,6 +47,7 @@ app.set("layout extractStyles", true);
 app.set("layout extractScripts", true);
 
 // route list
+app.use("/", webRoutes);
 
 // run server
 const PORT = process.env.PORT;
