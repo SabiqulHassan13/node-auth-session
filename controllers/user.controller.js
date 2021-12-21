@@ -75,7 +75,11 @@ async function processLogin(req, res) {
 
 function processLogout(req, res) {
   req.session.destroy((err) => {
-    if (err) throw err;
+    if (err) {
+      // throw err;
+      console.log(err);
+    }
+
     res.redirect("/login");
   });
 
