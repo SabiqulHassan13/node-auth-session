@@ -8,6 +8,7 @@ const cookieParser = require("cookie-parser");
 // internal import
 const { connectMysql, sequelize } = require("./config/sequelize");
 const webRoutes = require("./routes/web");
+const { checkCurrentUser } = require("./middlewares/auth");
 
 // app create
 const app = express();
@@ -28,10 +29,10 @@ app.use(cookieParser(process.env.COOKIE_SECRET_KEY));
 //   next();
 // });
 
-app.use(function (req, res, next) {
-  req.locals.user = res.locals.user ? res.locals.user : {};
-  next();
-});
+// app.use(function (req, res, next) {
+//   req.locals.user = res.locals.user ? res.locals.user : {};
+//   next();
+// });
 
 // template setup for ejs
 app.set("view engine", "ejs");
@@ -44,6 +45,7 @@ app.set("layout extractStyles", true);
 app.set("layout extractScripts", true);
 
 // route list
+app.use("*", checkCurrentUser);
 app.use("/", webRoutes);
 
 // run server

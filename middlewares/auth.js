@@ -19,4 +19,31 @@ function checkIsAdmin(req, res, next) {
   return res.redirect("back");
 }
 
-module.exports = { checkIsAuth, checkIsGuest, checkIsAdmin };
+function checkCurrentUser(req, res, next) {
+  const token = req.cookies[process.env.JWT_COOKIE_NAME];
+
+  console.log("req.cookies", req.cookies);
+  // console.log(token);
+  next();
+
+  // check and verify jwt token
+  // if (token) {
+  //   jwt.verify(token, process.env.JWT_SECRET_KEY, async (err, decodedToken) => {
+  //     if (err) {
+  //       console.log(err.message);
+  //       res.locals.currentUser = null;
+  //       next();
+  //     } else {
+  //       console.log(decodedToken);
+  //       let user = await User.findById(decodedToken.id);
+  //       res.locals.currentUser = user;
+  //       next();
+  //     }
+  //   });
+  // } else {
+  //   res.locals.currentUser = null;
+  //   next();
+  // }
+}
+
+module.exports = { checkIsAuth, checkIsGuest, checkIsAdmin, checkCurrentUser };

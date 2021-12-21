@@ -80,8 +80,8 @@ async function processLogin(req, res) {
     });
 
     // set auth locals
-    res.locals.user = userObject;
-    console.log(res.locals);
+    // res.locals.user = userObject;
+    // console.log(res.locals);
 
     res.redirect("/dashboard");
   } catch (err) {
