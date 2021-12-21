@@ -1,10 +1,9 @@
 // package import
 require("dotenv").config();
-
 const path = require("path");
 const express = require("express");
 const expressLayouts = require("express-ejs-layouts");
-// const session = require("express-session");
+const session = require("express-session");
 
 const cookieParser = require("cookie-parser");
 const expressSession = require("express-session");
