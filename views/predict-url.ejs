@@ -1,0 +1,90 @@
+<style>
+  .img-container {
+    max-width: 30rem;
+    margin: 0 auto;
+  }
+
+  .img-item {
+    width: 25rem;
+    /* height: 25rem; */
+  }
+</style>
+
+<section>
+  <h2>Predict by url</h2>
+  <div id="showResult"></div>
+  <div id="resultFormat"></div>
+
+  <div class="img-container">
+    <img id="imgItem" class="img-item" crossorigin="anonymous" />
+    <div id="loadContainer">
+      <input type="text" name="imgUrl" id="imgUrl" />
+      <button id="btnSubmit">Load</button>
+    </div>
+  </div>
+</section>
+
+<!-- Load TensorFlow.js. This is required to use MobileNet. -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.1"></script>
+<!-- Load the MobileNet model. -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@1.0.0"></script>
+<script>
+  const imgItemEl = document.getElementById("imgItem");
+
+  const loadContainerEl = document.getElementById("loadContainer");
+  const imgUrlEl = document.getElementById("imgUrl");
+  const btnSubmitEl = document.getElementById("btnSubmit");
+
+  const showResultEl = document.getElementById("showResult");
+  const resultFormatEl = document.getElementById("resultFormat");
+
+  btnSubmitEl.onclick = () => {
+    const targetUrl = imgUrlEl.value;
+    console.log(targetUrl);
+
+    imgItemEl.src = targetUrl;
+    showResultEl.innerText = "Loading ...";
+  };
+
+  imgItemEl.onload = () => {
+    loadContainerEl.style.display = "none";
+
+    predictModel();
+  };
+
+  function predictModel() {
+    //   Load the model.
+    mobilenet
+      .load()
+      .then((model) => {
+        // Classify the image.
+        model.classify(imgItemEl).then((predictions) => {
+          console.log("Predictions: ");
+          console.log(predictions);
+
+          showResultEl.innerText = "Result Found ...";
+          showPredictions(predictions);
+        });
+      })
+      .catch((err) => {
+        showResultEl.innerText = "Result Not Found ...";
+      });
+  }
+
+  function showPredictions(predictions) {
+    // resultFormatEl.innerText = `Classname: ${
+    //   predictions[0].className
+    // } & Probability: ${(predictions[0].probability * 100).toFixed(2)} %`;
+
+    // for (const i = 0; i < predictions.length; i++) {}
+
+    const para = document.createElement("p");
+    const node = document.createTextNode(
+      `Classname: ${predictions[0].className} & Probability: ${(
+        predictions[0].probability * 100
+      ).toFixed(2)} %`
+    );
+    para.appendChild(node);
+    resultFormatEl.appendChild(para);
+  }
+</script>

@@ -3,6 +3,7 @@ const router = express.Router();
 
 const homeController = require("../controllers/home.controller");
 const userController = require("../controllers/user.controller");
+const predictController = require("../controllers/predict.controller");
 const {
   checkIsAuth,
   checkIsGuest,
@@ -22,5 +23,8 @@ router.post("/login", userController.processLogin);
 router.post("/logout", userController.processLogout);
 
 router.get("/users", checkIsAdmin, userController.showUserList);
+
+// Predict Model Routes
+router.get("/predict-url", checkIsAuth, predictController.showPredictByUrl);
 
 module.exports = router;
