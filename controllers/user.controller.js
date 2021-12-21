@@ -63,7 +63,7 @@ async function processLogin(req, res) {
 
     // generate jwt for user
     const userObject = {
-      userId: user.id,
+      id: user.id,
       username: user.username,
       email: user.email,
       isAdmin: user.isAdmin,
@@ -74,13 +74,14 @@ async function processLogin(req, res) {
 
     // set cookie
     res.cookie(process.env.JWT_COOKIE_NAME, token, {
-      maxAge: JWT_EXPIRE_TIME,
+      maxAge: process.env.JWT_EXPIRE_TIME,
       httpOnly: true,
       signed: true,
     });
 
     // set auth locals
-    res.locals.authUser = userObject;
+    res.locals.user = userObject;
+    console.log(res.locals);
 
     res.redirect("/dashboard");
   } catch (err) {

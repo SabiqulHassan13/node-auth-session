@@ -22,11 +22,16 @@ app.use(express.json());
 // parse cookies
 app.use(cookieParser(process.env.COOKIE_SECRET_KEY));
 
-// access session data from ejs view
+// access locals data from ejs view
 // app.use(function (req, res, next) {
-//   res.locals.user = req.session.user;
+// res.locals.user = req.locals.user ? req.locals.user : {};
 //   next();
 // });
+
+app.use(function (req, res, next) {
+  req.locals.user = res.locals.user ? res.locals.user : {};
+  next();
+});
 
 // template setup for ejs
 app.set("view engine", "ejs");

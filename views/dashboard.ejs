@@ -2,14 +2,7 @@
   <h2>Dashboard Page</h2>
   <p>Welcome to your account</p>
 
-  <p>User Id: <%= user.id %></p>
-  <p>User Name: <%= user.username %></p>
-  <p>User Email: <%= user.email %></p>
-  <p>User Role: <%= user.isAdmin == 0 ? 'Client' : 'Admin' %></p>
-
-  <% if(user.isAdmin) { %>
-  <p>User List for admin <a href="/users">user-list</a></p>
-  <% } %>
+  
 
   <form action="/logout" method="POST">
     <button type="submit">Logout</button>
