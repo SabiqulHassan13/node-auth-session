@@ -1,19 +1,14 @@
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const User = require("../models/user.model");
 
 function showRegister(req, res) {
-  const error = req.session.error;
-  //   delete req.session.error;
-
   res.render("auth/register");
 }
 
 function showLogin(req, res) {
-  const error = req.session.error;
-  //   delete req.session.error;
-
-  res.render("auth/login", { err: error });
+  res.render("auth/login");
 }
 
 async function processRegister(req, res) {
@@ -49,40 +44,61 @@ async function processLogin(req, res) {
   const { email, password } = req.body;
   //   console.log(req.body);
 
-  const user = await User.findOne({ where: { email } });
+  try {
+    const user = await User.findOne({ where: { email } });
 
-  if (!user) {
-    req.session.error = "Invalid Credentials";
-    // console.log("invalid credentials");
+    if (!user) {
+      console.log("invalid credentials");
+
+      return res.redirect("/login");
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+      console.log("invalid credentials");
+
+      return res.redirect("/login");
+    }
+
+    // generate jwt for user
+    const userObject = {
+      userId: user.id,
+      username: user.username,
+      email: user.email,
+      isAdmin: user.isAdmin,
+    };
+    const token = jwt.sign(userObject, process.env.JWT_SECRET_KEY, {
+      expiresIn: process.env.JWT_EXPIRE_TIME,
+    });
+
+    // set cookie
+    res.cookie(process.env.JWT_COOKIE_NAME, token, {
+      maxAge: JWT_EXPIRE_TIME,
+      httpOnly: true,
+      signed: true,
+    });
+
+    // set auth locals
+    res.locals.authUser = userObject;
+
+    res.redirect("/dashboard");
+  } catch (err) {
+    // console.log("internal server error");
+    console.log(err);
 
     return res.redirect("/login");
   }
-
-  const isMatch = await bcrypt.compare(password, user.password);
-
-  if (!isMatch) {
-    req.session.error = "Invalid Credentials";
-    // console.log("invalid credentials");
-
-    return res.redirect("/login");
-  }
-
-  req.session.isAuth = true;
-  req.session.user = user;
-
-  res.redirect("/dashboard");
 }
 
 function processLogout(req, res) {
-  req.session.destroy((err) => {
-    if (err) throw err;
-    res.redirect("/login");
-  });
-
+  // req.session.destroy((err) => {
+  //   if (err) throw err;
+  //   res.redirect("/login");
+  // });
   //   req.session.isAuth = false;
   //   req.session.user = "";
   //   req.session.error = "";
-
   //   res.redirect("/login");
 }
 
