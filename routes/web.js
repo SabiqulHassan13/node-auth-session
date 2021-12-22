@@ -50,9 +50,12 @@ router.get("/predict-url", checkIsAuth, predictController.showPredictByUrl);
 router.get("/predict-db", checkIsAuth, predictController.showPredictByDB);
 
 router.post(
-  "/store-product",
+  "/products/store",
   upload.single("productFile"),
   predictController.storeProduct
 );
+
+router.get("/products/:id", predictController.deleteProduct);
+// router.delete("/products/:id", predictController.deleteProduct);
 
 module.exports = router;

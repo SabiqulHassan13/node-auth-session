@@ -1,25 +1,38 @@
 <style>
-  .img-container {
-    max-width: 30rem;
-    margin: 0 auto;
+  .product-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
   }
 
-  .img-item {
-    width: 25rem;
-    /* height: 25rem; */
+  .product-list li {
+    border: 1px solid #000;
+  }
+
+  .product-list img {
+    /* width: 15rem; */
+    width: 100%;
+    height: 15rem;
   }
 </style>
 
 <section>
   <h2>Predict by database (limit 1 image)</h2>
+  <% if(products) { %>
   <p>Currently you have <%= products.length %> product(s)</p>
+  <% } %>
   <div id="showResult"></div>
   <div id="resultFormat"></div>
 </section>
 
+<% if(products.length === 0) { %>
 <section>
   <h2>Store your image into DB to classify</h2>
-  <form action="/store-product" method="POST" enctype="multipart/form-data">
+  <form action="/products/store" method="POST" enctype="multipart/form-data">
     <div>
       <!-- <label for="userId">Current User</label> -->
       <input type="hidden" name="userId" value="<%= user.id %>" required />
@@ -32,19 +45,31 @@
     <button type="submit">Save</button>
   </form>
 </section>
-
+<% } else { %>
 <section>
   <h2>Your stored images into DB</h2>
-  <p>Delete it to upload a new one for testing purpose</p>
-  <ul>
+  <p>Delete them to upload a new one for testing purpose</p>
+  <ul class="product-list">
     <% products.forEach(function(result){ %>
     <li>
-      <img src="/images/dog-2.jpg" alt="" />
+      <!-- <img src="/images/dog-2.jpg" alt="" /> -->
+      <img src="/<%= result.productFile %>" alt="hello" />
       <div>
         <a href="" class="btn">Predict Now</a>
-        <a href="" class="btn">Delete</a>
+        <p>Product ID <%= result.id %></p>
+        <a href="/products/<%= result.id %>" class="btn">Delete</a>
+        <!-- <form action="/products/<%= result.id %>" method="DELETE">
+          <button type="submit">Delete</button>
+        </form> -->
       </div>
     </li>
     <% }); %>
   </ul>
+  <p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam id
+    reiciendis rem, cum laborum repellendus deleniti a illo delectus
+    reprehenderit recusandae minus obcaecati sit facere quo alias. Id, fugit
+    eaque.
+  </p>
 </section>
+<% } %>
