@@ -12,11 +12,16 @@ const SessionStore = require("express-session-sequelize")(expressSession.Store);
 // internal import
 const { connectMysql, sequelize } = require("./config/sequelize");
 const webRoutes = require("./routes/web");
+const User = require("./models/user.model");
+const Product = require("./models/product.model");
 
 // app create
 const app = express();
 
 // database connection
+User.hasMany(Product, { foreignKey: "userId" });
+Product.belongsTo(User, { foreignKey: "userId" });
+
 connectMysql();
 
 // session store

@@ -30,4 +30,6 @@ router.get("/services", predictController.showServices);
 router.get("/predict-url", checkIsAuth, predictController.showPredictByUrl);
 router.get("/predict-db", checkIsAuth, predictController.showPredictByDB);
 
+router.post("/store-product");
+
 module.exports = router;

@@ -2,29 +2,21 @@ const { Sequelize, DataTypes } = require("sequelize");
 
 const { sequelize } = require("../config/sequelize");
 
-const User = sequelize.define("User", {
+const Product = sequelize.define("Product", {
   id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     autoIncrement: true,
     primaryKey: true,
   },
-  username: {
-    type: DataTypes.STRING,
+  userId: {
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
-  email: {
+  productFile: {
     type: DataTypes.STRING,
     allowNull: false,
-  },
-  password: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  isAdmin: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: 0,
   },
 });
 
-module.exports = User;
+module.exports = Product;
