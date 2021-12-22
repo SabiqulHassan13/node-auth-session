@@ -25,6 +25,8 @@ router.post("/logout", userController.processLogout);
 router.get("/users", checkIsAdmin, userController.showUserList);
 
 // Predict Model Routes
+router.get("/services", predictController.showServices);
+
 router.get("/predict-url", checkIsAuth, predictController.showPredictByUrl);
 
 module.exports = router;
