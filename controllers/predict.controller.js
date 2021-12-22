@@ -8,8 +8,13 @@ function showPredictByUrl(req, res) {
   res.render("predict-url");
 }
 
-function showPredictByDB(req, res) {
-  res.render("predict-db");
+async function showPredictByDB(req, res) {
+  const currentUserId = res.locals.user.id;
+  console.log("current user id", currentUserId);
+
+  const products = await Product.findAll({ where: { userId: currentUserId } });
+
+  res.render("predict-db", { products });
 }
 
 async function storeProduct(req, res) {
@@ -22,7 +27,7 @@ async function storeProduct(req, res) {
   let statusMsg = "";
   // store file-name in db
   try {
-    Product.create({
+    await Product.create({
       userId: req.body.userId,
       productFile: productFileName,
     });

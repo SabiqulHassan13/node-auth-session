@@ -12,7 +12,7 @@
 
 <section>
   <h2>Predict by database (limit 1 image)</h2>
-  <p>Currently you have 2 product(s)</p>
+  <p>Currently you have <%= products.length %> product(s)</p>
   <div id="showResult"></div>
   <div id="resultFormat"></div>
 </section>
@@ -37,6 +37,7 @@
   <h2>Your stored images into DB</h2>
   <p>Delete it to upload a new one for testing purpose</p>
   <ul>
+    <% products.forEach(function(result){ %>
     <li>
       <img src="/images/dog-2.jpg" alt="" />
       <div>
@@ -44,5 +45,6 @@
         <a href="" class="btn">Delete</a>
       </div>
     </li>
+    <% }); %>
   </ul>
 </section>
