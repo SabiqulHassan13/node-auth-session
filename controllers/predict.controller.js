@@ -10,4 +10,11 @@ function showPredictByDB(req, res) {
   res.render("predict-db");
 }
 
-module.exports = { showServices, showPredictByUrl, showPredictByDB };
+function storeProduct(req, res) {}
+
+module.exports = {
+  showServices,
+  showPredictByUrl,
+  showPredictByDB,
+  storeProduct,
+};
