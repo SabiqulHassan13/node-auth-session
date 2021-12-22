@@ -13,7 +13,7 @@ function showPredictByDB(req, res) {
 }
 
 async function storeProduct(req, res) {
-  console.log(req.file);
+  // console.log(req.file);
 
   // already stored the file
   const productFileName = req.file.filename;

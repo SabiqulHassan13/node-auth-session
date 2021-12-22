@@ -21,8 +21,8 @@
   <h2>Store your image into DB to classify</h2>
   <form action="/store-product" method="POST" enctype="multipart/form-data">
     <div>
-      <label for="userId">Current User</label>
-      <input type="text" name="userId" value="<%= user.id %>" required />
+      <!-- <label for="userId">Current User</label> -->
+      <input type="hidden" name="userId" value="<%= user.id %>" required />
     </div>
     <br />
     <div>
