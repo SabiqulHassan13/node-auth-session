@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const multer = require("multer");
 
 const homeController = require("../controllers/home.controller");
 const userController = require("../controllers/user.controller");
@@ -9,6 +10,24 @@ const {
   checkIsGuest,
   checkIsAdmin,
 } = require("../middlewares/auth");
+
+// configure multer for file uploading
+const UPLOAD_PATH = "./uploads/";
+// const upload = multer({ dest: UPLOAD_PATH });
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, UPLOAD_PATH);
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    const fileExt = file.mimetype.split("/")[1];
+
+    cb(null, file.fieldname + "-" + uniqueSuffix + "." + fileExt);
+  },
+});
+
+const upload = multer({ storage: storage });
 
 // Home Routes
 router.get("/", homeController.showHome);
@@ -30,6 +49,10 @@ router.get("/services", predictController.showServices);
 router.get("/predict-url", checkIsAuth, predictController.showPredictByUrl);
 router.get("/predict-db", checkIsAuth, predictController.showPredictByDB);
 
-router.post("/store-product", checkIsAuth, predictController.storeProduct);
+router.post(
+  "/store-product",
+  upload.single("productFile"),
+  predictController.storeProduct
+);
 
 module.exports = router;

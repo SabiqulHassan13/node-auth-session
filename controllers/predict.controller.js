@@ -1,3 +1,5 @@
+const Product = require("../models/product.model");
+
 function showServices(req, res) {
   res.render("services");
 }
@@ -10,7 +12,26 @@ function showPredictByDB(req, res) {
   res.render("predict-db");
 }
 
-function storeProduct(req, res) {}
+async function storeProduct(req, res) {
+  console.log(req.file);
+
+  // already stored the file
+  const productFileName = req.file.filename;
+  console.log(productFileName);
+
+  let statusMsg = "";
+  // store file-name in db
+  try {
+    Product.create({
+      userId: req.body.userId,
+      productFile: productFileName,
+    });
+
+    res.send("product stored in db successfully");
+  } catch (err) {
+    res.send("product didn't store in db", err);
+  }
+}
 
 module.exports = {
   showServices,

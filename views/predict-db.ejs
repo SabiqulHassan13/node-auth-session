@@ -12,13 +12,14 @@
 
 <section>
   <h2>Predict by database (limit 1 image)</h2>
+  <p>Currently you have 2 product(s)</p>
   <div id="showResult"></div>
   <div id="resultFormat"></div>
 </section>
 
 <section>
   <h2>Store your image into DB to classify</h2>
-  <form action="/store-product" method="POST">
+  <form action="/store-product" method="POST" enctype="multipart/form-data">
     <div>
       <label for="userId">Current User</label>
       <input type="text" name="userId" value="<%= user.id %>" required />
