@@ -28,5 +28,6 @@ router.get("/users", checkIsAdmin, userController.showUserList);
 router.get("/services", predictController.showServices);
 
 router.get("/predict-url", checkIsAuth, predictController.showPredictByUrl);
+router.get("/predict-db", checkIsAuth, predictController.showPredictByDB);
 
 module.exports = router;

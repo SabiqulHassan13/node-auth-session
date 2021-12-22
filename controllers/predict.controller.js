@@ -6,4 +6,8 @@ function showPredictByUrl(req, res) {
   res.render("predict-url");
 }
 
-module.exports = { showServices, showPredictByUrl };
+function showPredictByDB(req, res) {
+  res.render("predict-db");
+}
+
+module.exports = { showServices, showPredictByUrl, showPredictByDB };
