@@ -90,8 +90,14 @@ function processLogout(req, res) {
   //   res.redirect("/login");
 }
 
-function showUserList(req, res) {
-  res.render("user-list");
+async function showUserList(req, res) {
+  try {
+    const foundUsers = await User.findAll();
+
+    res.render("user-list", { foundUsers });
+  } catch (err) {
+    res.render("user-list", { err });
+  }
 }
 
 module.exports = {

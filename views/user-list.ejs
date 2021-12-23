@@ -1,4 +1,38 @@
+<link rel="stylesheet" href="/css/table.css " />
+
 <section>
-  <h2>User List</h2>
-  <p>It's only for admin user</p>
+  <div class="container-md">
+    <h2>User List (<%= foundUsers.length %>)</h2>
+    <p class="access-status">It's only for admin user</p>
+
+    <% if(foundUsers.length == 0) {%>
+    <p class="list-missing">No user found</p>
+    <% }else { %>
+    <div class="box-row">
+      <table>
+        <tr>
+          <th>UID</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th class="table-actions">Manage</th>
+        </tr>
+        <% for (let i = 0; i < foundUsers.length; i++) { %>
+        <tr>
+          <td><%= foundUsers[i].id %></td>
+          <td><%= foundUsers[i].username %></td>
+          <td><%= foundUsers[i].email %></td>
+          <td><%= foundUsers[i].isAdmin ? "Admin" : "Client" %></td>
+          <td class="table-actions">
+            <a href="/users/<%= foundUsers[i].id %>" class="btn-trash">
+              <!-- <i class="fa fa-trash"></i> -->
+              Delete
+            </a>
+          </td>
+        </tr>
+        <% } %>
+      </table>
+    </div>
+    <% } %>
+  </div>
 </section>
