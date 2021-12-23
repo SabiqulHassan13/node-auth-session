@@ -136,6 +136,13 @@ section h2 {
   font-size: var(--space-8);
 }
 
+section p {
+  margin: var(--space-6) 0;
+  /* padding: var(--space-6) 0; */
+  font-weight: 400;
+  /* color: var(--color-gray-1100); */
+}
+
 /* container box classes */
 .container-sm {
   max-width: 768px;
