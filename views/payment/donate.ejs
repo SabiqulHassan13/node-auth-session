@@ -2,7 +2,59 @@
   <h2>Donate Page</h2>
   <p>Give us some donation for server maintenance</p>
 
-  <form action="">
-    <button class="btn">Pay Now 5</button>
-  </form>
+  <!-- <form action="/create-checkout-session" method="POST" id="donate-form">
+    <input type="hidden" name="product_name" value="one time donation" />
+    <div>
+      <label for="pay_amount">Enter you donation amount</label>
+      <input type="number" name="pay_amount" id="pay_amount" required />
+    </div>
+    <button type="submit">Pay Now</button>
+  </form> -->
+
+  <div>
+    <img src="/images/donate-1.png" alt="donate-avatar" />
+    <button type="button" id="btn-donate">Donate $2 Now</button>
+  </div>
 </section>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+  // const stripe = Stripe(process.env.STRIPE_PUBLIC_KEY);
+  const stripe = Stripe(
+    "pk_test_51I07eyGSRvytMvOu0jlZEEOkcjgjLP2XT7CpBlRbMgiqNsVQ62Mq4UqPaMP5wVEDTFTrxxgMSGCUwDSkkn7TQj9m00kWP315cP"
+  );
+
+  const checkoutBtnEl = document.getElementById("btn-donate");
+
+  checkoutBtnEl.addEventListener("click", function () {
+    const data = {
+      product: {
+        name: "One time donation",
+        image: "/images/donate-1.png",
+        amount: 2,
+        quantity: 1,
+      },
+    };
+
+    fetch("/pay-checkout", {
+      headers: { "Content-Type": "application/json" },
+      method: "POST",
+      body: JSON.stringify(data),
+    })
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (session) {
+        return stripe.redirectToCheckout({ sessionId: session.id });
+      })
+      .then(function (result) {
+        if (result.err) {
+          console.log(result.err.message);
+        }
+        console.log("Result: ", result);
+      })
+      .catch(function (err) {
+        console.log("Error: ", err);
+      });
+  });
+</script>

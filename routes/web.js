@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const multer = require("multer");
 
 const homeController = require("../controllers/home.controller");
 const userController = require("../controllers/user.controller");
@@ -11,24 +10,7 @@ const {
   checkIsGuest,
   checkIsAdmin,
 } = require("../middlewares/auth");
-
-// configure multer for file uploading
-const UPLOAD_PATH = "./uploads/";
-// const upload = multer({ dest: UPLOAD_PATH });
-
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, UPLOAD_PATH);
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    const fileExt = file.mimetype.split("/")[1];
-
-    cb(null, file.fieldname + "-" + uniqueSuffix + "." + fileExt);
-  },
-});
-
-const upload = multer({ storage: storage });
+const { upload } = require("../config/multer");
 
 // Home Routes
 router.get("/", homeController.showHome);
@@ -63,6 +45,15 @@ router.get("/products/:id", checkIsAuth, predictController.deleteProduct);
 // Payment Routes
 router.get("/pay-donate", paymentController.showPayDonation);
 
+// checkout with stripe
+// router.post(
+//   "/create-checkout-session",
+//   paymentController.createCheckoutSession
+// );
+
+router.post("/pay-checkout", paymentController.payCheckout);
+
+// payment redirect
 router.get("/pay-success", paymentController.showPaySuccess);
 router.get("/pay-cancel", paymentController.showPayCancel);
 

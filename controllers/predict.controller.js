@@ -65,6 +65,7 @@ async function deleteProduct(req, res) {
     console.log("unlinked product file path", pathToUnlink);
 
     // await fs.unlink(pathToUnlink);
+    fs.unlinkSync(pathToUnlink);
 
     // delete from db
     const result = product.destroy();
