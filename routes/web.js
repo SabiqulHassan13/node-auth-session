@@ -5,6 +5,7 @@ const multer = require("multer");
 const homeController = require("../controllers/home.controller");
 const userController = require("../controllers/user.controller");
 const predictController = require("../controllers/predict.controller");
+const paymentController = require("../controllers/payment.controller");
 const {
   checkIsAuth,
   checkIsGuest,
@@ -58,5 +59,11 @@ router.post(
 
 router.get("/products/:id", checkIsAuth, predictController.deleteProduct);
 // router.delete("/products/:id", predictController.deleteProduct);
+
+// Payment Routes
+router.get("/pay-donate", paymentController.showPayDonation);
+
+router.get("/pay-success", paymentController.showPaySuccess);
+router.get("/pay-cancel", paymentController.showPayCancel);
 
 module.exports = router;
