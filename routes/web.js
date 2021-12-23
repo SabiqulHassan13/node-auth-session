@@ -24,7 +24,7 @@ router.get("/login", checkIsGuest, userController.showLogin);
 router.post("/login", userController.processLogin);
 router.post("/logout", userController.processLogout);
 
-router.get("/users", checkIsAdmin, userController.showUserList);
+router.get("/users", checkIsAuth, userController.showUserList);
 
 // Predict Model Routes
 router.get("/services", predictController.showServices);

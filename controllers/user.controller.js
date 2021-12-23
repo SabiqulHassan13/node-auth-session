@@ -4,14 +4,14 @@ const User = require("../models/user.model");
 
 function showRegister(req, res) {
   const error = req.session.error;
-  //   delete req.session.error;
+  delete req.session.error;
 
-  res.render("auth/register");
+  res.render("auth/register", { err: error });
 }
 
 function showLogin(req, res) {
   const error = req.session.error;
-  //   delete req.session.error;
+  delete req.session.error;
 
   res.render("auth/login", { err: error });
 }
@@ -52,7 +52,7 @@ async function processLogin(req, res) {
   const user = await User.findOne({ where: { email } });
 
   if (!user) {
-    // req.session.error = "Invalid Credentials";
+    req.session.error = "Invalid Credentials";
     // console.log("invalid credentials");
 
     return res.redirect("/login");
@@ -61,7 +61,7 @@ async function processLogin(req, res) {
   const isMatch = await bcrypt.compare(password, user.password);
 
   if (!isMatch) {
-    // req.session.error = "Invalid Credentials";
+    req.session.error = "Invalid Credentials";
     // console.log("invalid credentials");
 
     return res.redirect("/login");
