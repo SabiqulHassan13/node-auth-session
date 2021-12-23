@@ -1,0 +1,40 @@
+.account-info {
+  margin-top: var(--space-8);
+  text-align: center;
+}
+
+.account-info p {
+  font-size: var(--space-5);
+  margin: var(--space-2) 0;
+}
+
+.account-info .profile {
+  margin-top: var(--space-8);
+}
+
+.account-info .btn-logout {
+  border: none;
+  font: inherit;
+  font-weight: bold;
+  margin-top: var(--space-4);
+  padding: auto;
+}
+
+.account-info .list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+  margin: var(--space-4) 0;
+  /* text-align: left; */
+}
+
+.account-info .list li {
+  padding: var(--space-2) var(--space-4);
+  text-align: left;
+  border-left: 6px solid var(--color-blue-500);
+}
+
+.account-info .list h4 {
+  font-size: var(--space-6);
+  margin: var(--space-4) 0;
+}

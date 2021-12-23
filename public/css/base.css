@@ -39,7 +39,7 @@ html {
   --color-blue-1100: #003780;
   --color-blue-1200: #102770;
 
-  --border-radius-sm: 4px;
+  --border-radius-sm: 6px;
   --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 

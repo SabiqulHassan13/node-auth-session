@@ -1,17 +1,32 @@
-<section>
-  <h2>Dashboard Page</h2>
-  <p>Welcome to your account</p>
+<link rel="stylesheet" href="/css/dashboard.css" />
 
-  <p>User Id: <%= user.id %></p>
-  <p>User Name: <%= user.username %></p>
-  <p>User Email: <%= user.email %></p>
-  <p>User Role: <%= user.isAdmin == 0 ? 'Client' : 'Admin' %></p>
+<section class="account-info">
+  <div class="container-sm">
+    <h2>Dashboard Page</h2>
+    <p>Welcome to your account</p>
 
-  <% if(user.isAdmin) { %>
-  <p>User List for admin <a href="/users">user-list</a></p>
-  <% } %>
+    <div class="profile box-row">
+      <p>User Id: <%= user.id %></p>
+      <p>User Name: <%= user.username %></p>
+      <p>User Email: <%= user.email %></p>
+      <p>User Role: <%= user.isAdmin == 0 ? 'Client' : 'Admin' %></p>
 
-  <form action="/logout" method="POST">
-    <button type="submit">Logout</button>
-  </form>
+      <form action="/logout" method="POST">
+        <button type="submit" class="btn btn-logout">Logout Now</button>
+      </form>
+    </div>
+
+    <ul class="list">
+      <% if(!user.isAdmin) { %>
+      <li class="box-card">
+        <h4>User List</h4>
+        <a href="/users" class="btn">View</a>
+      </li>
+      <li class="box-card">
+        <h4>Product List</h4>
+        <a href="" class="btn">View</a>
+      </li>
+      <% } %>
+    </ul>
+  </div>
 </section>
