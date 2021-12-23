@@ -1,0 +1,8 @@
+.home {
+  margin: var(--space-12) var(--space-8);
+  text-align: center;
+
+  /* background-color: white;
+  border-radius: var(--border-radius-sm);
+  padding: var(--space-4); */
+}
