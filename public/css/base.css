@@ -154,6 +154,11 @@ section p {
 }
 
 /* container box classes */
+.container-xs {
+  max-width: 568px;
+  margin: 0 auto;
+}
+
 .container-sm {
   max-width: 768px;
   margin: 0 auto;
