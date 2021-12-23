@@ -4,7 +4,7 @@
 }
 
 .donate p {
-  font-size: var(--space-4);
+  font-size: var(--space-5) !important;
 }
 
 .donate-card {
