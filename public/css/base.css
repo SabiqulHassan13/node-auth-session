@@ -109,6 +109,13 @@ a {
   box-shadow: var(--shadow-md);
 }
 
+.box-card {
+  /* background-color: #f3f3f3; */
+  background-color: white;
+  border-radius: var(--border-radius-sm);
+  box-shadow: var(--shadow-md);
+}
+
 a.btn,
 button.btn {
   background-color: var(--color-blue-500);
@@ -134,10 +141,11 @@ button.btn:active {
 
 section h2 {
   font-size: var(--space-8);
+  text-align: center;
 }
 
 section p {
-  margin: var(--space-6) 0;
+  /* margin: var(--space-6) 0; */
   /* padding: var(--space-6) 0; */
   font-weight: 400;
   /* color: var(--color-gray-1100); */

@@ -1,0 +1,31 @@
+.services {
+  /* text-align: center; */
+}
+
+.service-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+  /* grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr)); */
+  /* justify-content: space-between; */
+  /* justify-content: space-evenly; */
+
+  margin: var(--space-8) auto;
+}
+.service-item {
+  /* width: 400px; */
+  overflow: hidden;
+}
+
+.service-item img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.service-info {
+  padding: var(--space-4);
+  /* text-transform: ; */
+}
+.service-info h4 {
+  font-size: var(--space-5);
+}
