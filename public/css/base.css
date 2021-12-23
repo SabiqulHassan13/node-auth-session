@@ -147,8 +147,10 @@ section h2 {
 section p {
   /* margin: var(--space-6) 0; */
   /* padding: var(--space-6) 0; */
-  font-weight: 400;
+  /* font-weight: 400; */
+  /* font-size: var(--space-4); */
   /* color: var(--color-gray-1100); */
+  font: inherit;
 }
 
 /* container box classes */

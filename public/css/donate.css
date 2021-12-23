@@ -1,0 +1,32 @@
+.donate {
+  margin: var(--space-12) var(--space-8);
+  text-align: center;
+}
+
+.donate p {
+  font-size: var(--space-4);
+}
+
+.donate-card {
+  max-width: 25rem;
+  margin: var(--space-8) auto;
+
+  overflow: hidden;
+}
+
+/* .donate-card img,
+button {
+  display: block;
+} */
+
+.donate-card img {
+  width: 100%;
+  object-fit: contain;
+}
+
+.donate-card button {
+  margin: var(--space-6) 0;
+  border: none;
+  font: inherit;
+  font-weight: bold;
+}
