@@ -48,15 +48,16 @@
 <% } else { %>
 <section>
   <h2>Your stored images into DB</h2>
-  <p>Delete them to upload a new one for testing purpose</p>
+  <p>Delete them after testing & then upload new one</p>
   <ul class="product-list">
     <% products.forEach(function(result){ %>
     <li>
       <!-- <img src="/images/dog-2.jpg" alt="" /> -->
-      <img src="/<%= result.productFile %>" alt="hello" />
+      <img src="/<%= result.productFile %>" alt="hello" id="imgItem" />
       <div>
-        <a href="" class="btn">Predict Now</a>
         <p>Product ID <%= result.id %></p>
+        <!-- <a href="" class="btn">Predict Now</a> -->
+        <button class="btn" onclick="predictImageResult()">Predict</button>
         <a href="/products/<%= result.id %>" class="btn">Delete</a>
         <!-- <form action="/products/<%= result.id %>" method="DELETE">
           <button type="submit">Delete</button>
@@ -73,3 +74,54 @@
   </p>
 </section>
 <% } %>
+
+<!-- Load TensorFlow.js. This is required to use MobileNet. -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.1"></script>
+<!-- Load the MobileNet model. -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@1.0.0"></script>
+<!-- code for image model prediction -->
+<script>
+  function predictImageResult() {
+    const predictImage = document.getElementById("imgItem");
+
+    const showResultEl = document.getElementById("showResult");
+    const resultFormatEl = document.getElementById("resultFormat");
+
+    // Load the model.
+    mobilenet
+      .load()
+      .then((model) => {
+        // Classify the image.
+        model.classify(predictImage).then((predictions) => {
+          // console.log(`Predictions: ${predictions}`);
+          console.log("Predictions");
+          console.log(predictions);
+
+          // show prediction result
+          showResultEl.innerText = "Result Found ...";
+
+          showPredictions(predictions);
+        });
+      })
+      .catch((err) => {
+        showResultEl.innerText = "Result Not Found ...";
+
+        console.log("Prediction failed", err);
+      });
+  }
+
+  function showPredictions(predictions) {
+    const listEl = document.getElementById("resultFormat");
+
+    const para = document.createElement("p");
+    const node = document.createTextNode(
+      `Classname: ${predictions[0].className} & Probability: ${(
+        predictions[0].probability * 100
+      ).toFixed(2)} %`
+    );
+    para.appendChild(node);
+
+    // resultFormatEl.appendChild(para);
+    listEl.appendChild(para);
+  }
+</script>
