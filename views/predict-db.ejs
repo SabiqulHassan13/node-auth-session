@@ -73,12 +73,12 @@
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@1.0.0"></script>
 <!-- code for image model prediction -->
 <script>
+  const predictImage = document.getElementById("imgItem");
+
+  const showResultEl = document.getElementById("showResult");
+  const resultFormatEl = document.getElementById("resultFormat");
+
   function predictImageResult() {
-    const predictImage = document.getElementById("imgItem");
-
-    const showResultEl = document.getElementById("showResult");
-    const resultFormatEl = document.getElementById("resultFormat");
-
     // Load the model.
     mobilenet
       .load()
@@ -103,17 +103,41 @@
   }
 
   function showPredictions(predictions) {
-    const listEl = document.getElementById("resultFormat");
+    // const listEl = document.getElementById("resultFormat");
 
-    const para = document.createElement("p");
-    const node = document.createTextNode(
-      `Classname: ${predictions[0].className} & Probability: ${(
-        predictions[0].probability * 100
-      ).toFixed(2)} %`
-    );
-    para.appendChild(node);
+    // const para = document.createElement("p");
+    // const node = document.createTextNode(
+    //   `Classname: ${predictions[0].className} & Probability: ${(
+    //     predictions[0].probability * 100
+    //   ).toFixed(2)} %`
+    // );
+    // para.appendChild(node);
 
-    // resultFormatEl.appendChild(para);
-    listEl.appendChild(para);
+    // // resultFormatEl.appendChild(para);
+    // listEl.appendChild(para);
+
+    // insert predict item 1
+    const predItem1 = document.createElement("p");
+    predItem1.textContent = `Classname: ${
+      predictions[0].className
+    } & Probability: ${(predictions[0].probability * 100).toFixed(2)} %`;
+
+    resultFormatEl.appendChild(predItem1);
+
+    // insert predict item 2
+    const predItem2 = document.createElement("p");
+    predItem2.textContent = `Classname: ${
+      predictions[1].className
+    } & Probability: ${(predictions[1].probability * 100).toFixed(2)} %`;
+
+    resultFormatEl.appendChild(predItem2);
+
+    // insert predict item 3
+    const predItem3 = document.createElement("p");
+    predItem3.textContent = `Classname: ${
+      predictions[2].className
+    } & Probability: ${(predictions[2].probability * 100).toFixed(2)} %`;
+
+    resultFormatEl.appendChild(predItem3);
   }
 </script>
