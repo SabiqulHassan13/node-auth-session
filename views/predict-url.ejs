@@ -1,25 +1,18 @@
-<style>
-  .img-container {
-    max-width: 30rem;
-    margin: 0 auto;
-  }
+<link rel="stylesheet" href="/css/form.css" />
+<link rel="stylesheet" href="/css/predict-url.css" />
 
-  .img-item {
-    width: 25rem;
-    /* height: 25rem; */
-  }
-</style>
+<section class="predict-url">
+  <div class="container-md">
+    <h2>Predict by url</h2>
+    <div id="showResult"></div>
+    <div id="resultFormat"></div>
 
-<section>
-  <h2>Predict by url</h2>
-  <div id="showResult"></div>
-  <div id="resultFormat"></div>
-
-  <div class="img-container">
-    <img id="imgItem" class="img-item" crossorigin="anonymous" />
-    <div id="loadContainer">
-      <input type="text" name="imgUrl" id="imgUrl" />
-      <button id="btnSubmit">Load</button>
+    <div class="img-container">
+      <img id="imgItem" class="img-item" crossorigin="anonymous" />
+      <div id="loadContainer" class="box-row">
+        <input type="text" name="imgUrl" id="imgUrl" class="form-row" />
+        <button id="btnSubmit" class="btn">Load</button>
+      </div>
     </div>
   </div>
 </section>

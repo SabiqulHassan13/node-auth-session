@@ -1,0 +1,17 @@
+.predict-url {
+  text-align: center;
+}
+
+.img-container {
+  max-width: 30rem;
+  margin: var(--space-4) auto;
+}
+
+.img-item {
+  width: 25rem;
+  /* height: 25rem; */
+}
+
+/* #loadContainer {
+  display: flex;
+} */
