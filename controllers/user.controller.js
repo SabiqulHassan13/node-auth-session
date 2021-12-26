@@ -110,7 +110,7 @@ async function deleteUserById(req, res) {
     // then delete account
     existUser.destroy();
 
-    res.redirect("/user-list");
+    res.redirect("/users");
   } catch (err) {
     res.render("user-list", { err });
   }
