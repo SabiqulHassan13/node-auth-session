@@ -26,6 +26,7 @@ router.post("/logout", userController.processLogout);
 
 // only for admin
 router.get("/users", checkIsAuth, userController.showUserList);
+router.get("/users/:id/delete", checkIsAuth, userController.deleteUserById);
 
 // Predict Model Routes
 router.get("/services", predictController.showServices);

@@ -24,10 +24,11 @@
           <td><%= foundUsers[i].email %></td>
           <td><%= foundUsers[i].isAdmin ? "Admin" : "Client" %></td>
           <td class="table-actions">
-            <a href="/users/<%= foundUsers[i].id %>" class="btn-trash">
-              <!-- <i class="fa fa-trash"></i> -->
+            <% if(!foundUsers[i].isAdmin) { %>
+            <a href="/users/<%= foundUsers[i].id %>/delete" class="btn-trash">
               Delete
             </a>
+            <% } %>
           </td>
         </tr>
         <% } %>

@@ -100,6 +100,21 @@ async function showUserList(req, res) {
   }
 }
 
+async function deleteUserById(req, res) {
+  const { id: userId } = req.params;
+
+  try {
+    // find exist client user
+    const existUser = await User.findOne({ where: { id: userId } });
+
+    // then delete account
+    existUser.destroy();
+
+    res.redirect("/user-list");
+  } catch (err) {
+    res.render("user-list", { err });
+  }
+}
 module.exports = {
   showRegister,
   showLogin,
@@ -107,4 +122,5 @@ module.exports = {
   processLogin,
   processLogout,
   showUserList,
+  deleteUserById,
 };
