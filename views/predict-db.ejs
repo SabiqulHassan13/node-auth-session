@@ -1,77 +1,69 @@
-<style>
-  .product-list {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+<link rel="stylesheet" href="/css/form.css" />
+<link rel="stylesheet" href="/css/predict-db.css" />
 
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
-  }
-
-  .product-list li {
-    border: 1px solid #000;
-  }
-
-  .product-list img {
-    /* width: 15rem; */
-    width: 100%;
-    height: 15rem;
-  }
-</style>
-
-<section>
-  <h2>Predict by database (limit 1 image)</h2>
-  <% if(products) { %>
-  <p>Currently you have <%= products.length %> product(s)</p>
-  <% } %>
-  <div id="showResult"></div>
-  <div id="resultFormat"></div>
+<section class="predict-db">
+  <div class="container-md">
+    <h2>Predict by database (limit 1 image)</h2>
+    <% if(products) { %>
+    <p>Currently you have <%= products.length %> product(s)</p>
+    <% } %>
+    <div id="showResult"></div>
+    <div id="resultFormat"></div>
+  </div>
 </section>
 
 <% if(products.length === 0) { %>
-<section>
-  <h2>Store your image into DB to classify</h2>
-  <form action="/products/store" method="POST" enctype="multipart/form-data">
-    <div>
-      <!-- <label for="userId">Current User</label> -->
-      <input type="hidden" name="userId" value="<%= user.id %>" required />
+<section class="predict-db">
+  <div class="container-md">
+    <h2>Store your image into DB to classify</h2>
+
+    <div class="box-row container-xs">
+      <form
+        action="/products/store"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <div>
+          <!-- <label for="userId">Current User</label> -->
+          <input type="hidden" name="userId" value="<%= user.id %>" required />
+        </div>
+        <br />
+        <div class="form-row">
+          <label for="productFile">File to upload</label>
+          <input type="file" name="productFile" id="productFile" required />
+        </div>
+        <button type="submit" class="btn btn-submit-form">Save</button>
+      </form>
     </div>
-    <br />
-    <div>
-      <label for="productFile">File to upload</label>
-      <input type="file" name="productFile" id="productFile" required />
-    </div>
-    <button type="submit">Save</button>
-  </form>
+  </div>
 </section>
 <% } else { %>
-<section>
-  <h2>Your stored images into DB</h2>
-  <p>Delete them after testing & then upload new one</p>
-  <ul class="product-list">
-    <% products.forEach(function(result){ %>
-    <li>
-      <!-- <img src="/images/dog-2.jpg" alt="" /> -->
-      <img src="/<%= result.productFile %>" alt="hello" id="imgItem" />
-      <div>
-        <p>Product ID <%= result.id %></p>
-        <!-- <a href="" class="btn">Predict Now</a> -->
-        <button class="btn" onclick="predictImageResult()">Predict</button>
-        <a href="/products/<%= result.id %>" class="btn">Delete</a>
-        <!-- <form action="/products/<%= result.id %>" method="DELETE">
-          <button type="submit">Delete</button>
-        </form> -->
-      </div>
-    </li>
-    <% }); %>
-  </ul>
-  <p>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam id
-    reiciendis rem, cum laborum repellendus deleniti a illo delectus
-    reprehenderit recusandae minus obcaecati sit facere quo alias. Id, fugit
-    eaque.
-  </p>
+<section class="predict-db">
+  <div class="container-xs">
+    <h2>Your stored images into DB</h2>
+    <p>Delete them after testing & then upload new one</p>
+    <ul class="product-list">
+      <% products.forEach(function(result){ %>
+      <li>
+        <!-- <img src="/images/dog-2.jpg" alt="" /> -->
+        <img src="/<%= result.productFile %>" alt="hello" id="imgItem" />
+        <div>
+          <p>Product ID <%= result.id %></p>
+          <!-- <a href="" class="btn">Predict Now</a> -->
+          <button class="btn btn-submit-form" onclick="predictImageResult()">
+            Predict
+          </button>
+          <a href="/products/<%= result.id %>" class="btn btn-submit-form"
+            >Delete</a
+          >
+          <!-- <form action="/products/<%= result.id %>" method="DELETE">
+            <button type="submit">Delete</button>
+          </form> -->
+        </div>
+      </li>
+      <% }); %>
+    </ul>
+  </div>
 </section>
 <% } %>
 
